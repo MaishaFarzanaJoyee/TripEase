@@ -26,10 +26,16 @@ class TicketController extends Controller
 
     // View cart contents
     public function viewCart()
-    {
-        $cart = session('cart', []);
-        return view('tickets.cart', compact('cart'));
-    }
+{
+    $cart = session()->get('cart', []);
+    $total = array_sum(array_column($cart, 'price'));
+
+    return view('tickets.cart', [
+        'cart' => $cart,
+        'total' => $total
+    ]);
+}
+
 
     // Checkout (for now, just clear the cart)
     public function checkout()
