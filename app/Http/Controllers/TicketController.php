@@ -7,59 +7,34 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Show all available tickets
     public function index()
     {
-        //
+        $tickets = Ticket::all();
+        return view('tickets.index', compact('tickets'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Add a ticket to the session cart
+    public function addToCart(Request $request, Ticket $ticket)
     {
-        //
+        $cart = session()->get('cart', []);
+        $cart[$ticket->id] = $ticket;
+        session(['cart' => $cart]);
+
+        return redirect()->route('tickets.cart')->with('success', 'Ticket added to cart.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // View cart contents
+    public function viewCart()
     {
-        //
+        $cart = session('cart', []);
+        return view('tickets.cart', compact('cart'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ticket $ticket)
+    // Checkout (for now, just clear the cart)
+    public function checkout()
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Ticket $ticket)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
+        session()->forget('cart');
+        return redirect()->route('tickets.index')->with('success', 'Checkout complete!');
     }
 }
