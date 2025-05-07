@@ -10,7 +10,7 @@ Route::post('/checkout', [TicketController::class, 'checkout'])->name('tickets.c
 Route::get('/budget', [BudgetController::class, 'show'])->name('budget.show');
 Route::get('/budget/create', [BudgetController::class, 'create'])->name('budget.create');
 Route::post('/budget', [BudgetController::class, 'store'])->name('budget.store');
-
+Route::get('/', [TicketController::class, 'index']);
 
 
 // Route::get('/', function () {
