@@ -44,7 +44,15 @@
                     <p>Location: {{ $hotel->location }}</p>
                     <p>Price: ${{ $hotel->price }}</p>
                     <p>Amenities: {{ $hotel->amenities ?? 'N/A' }}</p>
-                    <a href="{{ route('cart.add', ['hotel_id' => $hotel->id]) }}">Add to Cart</a>
+                    @foreach ($hotels as $hotel)
+    <p>{{ $hotel->name }} - {{ $hotel->location }} - ${{ $hotel->price }}</p>
+
+    <form action="{{ route('cart.add', ['hotel_id' => $hotel->id, 'car_id' => null]) }}" method="POST" style="display:inline;">
+        @csrf
+        <button type="submit">Add Hotel to Cart</button>
+    </form>
+@endforeach
+
                 </li>
             @endforeach
         </ul>

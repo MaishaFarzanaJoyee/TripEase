@@ -12,12 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cars', function (Blueprint $table) {
-            $table->id();
-            $table->string('model'); // Car model (e.g., SUV, Sedan)
-            $table->decimal('price', 8, 2); // Price per day
-            $table->boolean('availability')->default(true); // Availability status (true/false)
-            $table->timestamps();
-        });
+    $table->id();
+    $table->string('make');
+    $table->string('model');
+    $table->string('location');
+    $table->string('type');
+    $table->decimal('price_per_day', 8, 2);
+    $table->timestamps();
+});
+
     }
 
     /**

@@ -30,6 +30,10 @@ Route::post('/cart/add/{hotel_id}/{car_id}', [CartController::class, 'addToCart'
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 Route::delete('/cart/remove/{hotel_id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::get('/select', [CartController::class, 'showSelectionForm'])->name('cart.select');
+Route::post('/cart/add/{hotel_id?}/{car_id?}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::delete('/cart/remove/{type}/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove'); // type = hotel|car
+
 
 
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');

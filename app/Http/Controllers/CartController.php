@@ -25,4 +25,9 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
         return view('cart.view', compact('cart'));
     }
+    public function showSelectionForm()
+    { $hotels = \App\Models\Hotel::all();
+    $cars = \App\Models\Car::all();
+    return view('cart.select', compact('hotels', 'cars'));}
+
 }
