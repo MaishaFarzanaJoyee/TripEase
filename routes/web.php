@@ -6,9 +6,13 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PreferenceController;
+use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\ReviewController;
 
-
-
+Route::get('/', function () {
+    return redirect()->route('preferences');
+});
 
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
 Route::post('/tickets/{ticket}/add-to-cart', [TicketController::class, 'addToCart'])->name('tickets.addToCart');
@@ -27,3 +31,15 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 Route::delete('/cart/remove/{hotel_id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
+// Preferences (Feature 1)
+Route::get('/preferences', [PreferenceController::class, 'showPreferences'])->name('preferences');
+Route::post('/preferences/budget', [PreferenceController::class, 'setBudget'])->name('preferences.budget');
+Route::post('/preferences/bookmarks', [PreferenceController::class, 'addBookmark'])->name('preferences.bookmark.add');
+Route::post('/preferences/bookmarks/remove', [PreferenceController::class, 'removeBookmark'])->name('preferences.bookmark.remove');
+
+// Recommendations (Feature 2)
+Route::get('/recommendations', [RecommendationController::class, 'showRecommendations'])->name('recommendations');
+
+// Reviews (Features 3 & 4)
+Route::get('/reviews/{type}/{id}', [ReviewController::class, 'showReviews'])->name('reviews.show');
+Route::post('/reviews', [ReviewController::class, 'postReview'])->name('reviews.store');
