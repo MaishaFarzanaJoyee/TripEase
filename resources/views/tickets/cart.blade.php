@@ -13,8 +13,8 @@
         <ul>
             @foreach($cart as $item)
                 <li>
-                    {{ $item->type }} from {{ $item->from_location }} to {{ $item->to_location }}
-                    on {{ $item->departure_date }} at {{ $item->departure_time }} – ৳{{ $item->price }}
+                    {{ $item['type'] }} from {{ $item['from_location'] }} to {{ $item['to_location'] }}
+                    on {{ $item['departure_date'] }} at {{ $item['departure_time'] }} – ৳{{ number_format($item['price'], 2) }}
                 </li>
             @endforeach
         </ul>

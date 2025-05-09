@@ -31,6 +31,13 @@ Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 Route::delete('/cart/remove/{hotel_id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
+
+Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+Route::post('/tickets/{ticket}/add-to-cart', [TicketController::class, 'addToCart'])->name('tickets.addToCart');
+Route::get('/cart', [TicketController::class, 'viewCart'])->name('tickets.cart'); // <-- This is the missing one
+Route::post('/checkout', [TicketController::class, 'checkout'])->name('tickets.checkout');
+
+
 // Preferences (Feature 1)
 Route::get('/preferences', [PreferenceController::class, 'showPreferences'])->name('preferences');
 Route::post('/preferences/budget', [PreferenceController::class, 'setBudget'])->name('preferences.budget');
