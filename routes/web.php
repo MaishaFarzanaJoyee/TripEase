@@ -9,7 +9,13 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\RecommendationController;
 use App\Http\Controllers\ReviewController;
-
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\TourPlanController;
+use App\Http\Controllers\Admin\TourPlanController as AdminTourPlanController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\TouristSpotController;
+use App\Models\TourPlan;
 Route::get('/', function () {
     return redirect()->route('preferences');
 });
@@ -54,3 +60,33 @@ Route::get('/recommendations', [RecommendationController::class, 'showRecommenda
 // Reviews (Features 3 & 4)
 Route::get('/reviews/{type}/{id}', [ReviewController::class, 'showReviews'])->name('reviews.show');
 Route::post('/reviews', [ReviewController::class, 'postReview'])->name('reviews.store');
+Route::get('/', function () {
+    return view('welcome'); // Home page
+});
+
+// Show all tour plans to users Admin pannel
+Route::get('/tour-plans', function () {
+    $tourPlans = TourPlan::all();
+    return view('tour-plans.index', compact('tourPlans'));
+})->name('tour-plans.index');
+
+// ================================
+// Authenticated User Booking Routes
+// ================================
+
+Route::middleware(['auth'])->group(function () {
+    // Bookings (User can create/view their bookings)
+    Route::resource('bookings', BookingController::class)->only(['index', 'create', 'store']);
+});
+
+// ===================
+// Admin-Only Routes
+// ===================
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    // Admin dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Admin Tour Plan Management (CRUD except show)
+    Route::resource('tour-plans', AdminTourPlanController::class)->except(['show']);
+});
