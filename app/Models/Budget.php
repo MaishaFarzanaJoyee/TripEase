@@ -11,3 +11,8 @@ class Budget extends Model
 
     protected $fillable = ['amount']; // ✅ Allow mass assignment of 'amount'
 }
+// public function user()
+// {
+//     return $this->belongsTo(User::class);
+// }
+
