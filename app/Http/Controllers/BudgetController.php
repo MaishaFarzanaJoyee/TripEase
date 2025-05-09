@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use Illuminate\Http\Request;
 
+
 class BudgetController extends Controller
 {
     public function create()
@@ -24,6 +25,7 @@ class BudgetController extends Controller
 
         return redirect()->route('budget.show')->with('success', 'Budget set successfully!');
     }
+
 
     public function show()
     {
