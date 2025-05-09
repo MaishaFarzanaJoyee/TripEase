@@ -1,3 +1,5 @@
+<?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -5,27 +7,24 @@ use App\Models\Car;
 
 class CarSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Car::create([
-            'make' => 'Toyota',
-            'model' => 'Camry',
-            'location' => 'Paris',
-            'price' => 50,
-        ]);
-        
-        Car::create([
-            'make' => 'Honda',
             'model' => 'Civic',
+            'make' => 'Honda',
             'location' => 'Paris',
-            'price' => 45,
+            'type' => 'Sedan',
+            'brand' => 'Honda',
+            'price_per_day' => 80,
         ]);
-        
+
         Car::create([
-            'make' => 'BMW',
-            'model' => '5 Series',
-            'location' => 'New York',
-            'price' => 150,
+            'model' => 'Corolla',
+            'make' => 'Toyota',
+            'location' => 'London',
+            'type' => 'Sedan',
+            'brand' => 'Toyota',
+            'price_per_day' => 70,
         ]);
     }
 }

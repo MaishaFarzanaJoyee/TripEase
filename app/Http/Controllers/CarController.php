@@ -38,22 +38,34 @@ class CarController extends Controller
     }
 
     // Add car to cart
-    public function addToCart($carId)
+public function addToCart($hotel_id, $car_id)
     {
-        $car = Car::findOrFail($carId);
+        // Get car and hotel details
+        $car = Car::findOrFail($car_id);
+        $hotel = Hotel::findOrFail($hotel_id);
 
-        $cart = session()->get('car_cart', []);
-        $cart[$carId] = $car;
-        session()->put('car_cart', $cart);
+        // Get the cart from session
+        $carCart = session()->get('car_cart', []);
+        
+        // Add car to the cart
+        $carCart[] = $car;
+        session()->put('car_cart', $carCart);
 
-        return redirect()->route('car.cart')->with('success', 'Car added to cart!');
+        // Add hotel to the cart if not already
+        if(!session()->has('hotel_cart')) {
+            session()->put('hotel_cart', [$hotel]);
+        }
+
+        return redirect()->route('cart.view')->with('success', 'Car added to cart!');
     }
 
-    // View cart
+    // View the cart
     public function viewCart()
     {
-        $cart = session()->get('car_cart', []);
-        return view('car.cart', compact('cart'));
+        return view('cart.view'); // Displays the cart view
     }
 }
+
+
+
 
