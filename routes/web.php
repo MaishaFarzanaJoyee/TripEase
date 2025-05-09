@@ -20,16 +20,10 @@ Route::post('/budget', [BudgetController::class, 'store'])->name('budget.store')
 Route::get('/', [TicketController::class, 'index']);
 
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/hotels/search', [HotelController::class, 'search'])->name('hotels.search');
 Route::get('/cars/search', [CarController::class, 'search'])->name('cars.search');
 Route::post('/cart/add/{hotel_id}/{car_id}', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
 Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+Route::delete('/cart/remove/{hotel_id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
-
-Route::get('/', function () {
-    return view('welcome'); // or any view you created
-});
