@@ -124,3 +124,4 @@ With its scalable design and intuitive interface, TripEase provides an enhanced,
 ---
 
 📌 *Developed as part of an undergraduate software engineering project using the MVC architecture.*
+`BRACU` `CSE470` `470` `PROJECT`
